@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(Pacman3D_group5)
+project(Pacman2D_group5)
 
 find_package(OpenGL REQUIRED)
 
@@ -11,7 +11,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 add_subdirectory(external/glfw)
 add_subdirectory(external/glad)
 add_subdirectory(external/glm)
-add_subdirectory(external/tinyobjloader)
 
 add_executable(
 	${PROJECT_NAME}
@@ -36,7 +35,6 @@ target_link_libraries(
 	glfw
 	glm
   	glad
-  	tinyobjloader
 	OpenGL::GL)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/levels/level0

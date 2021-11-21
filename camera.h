@@ -42,8 +42,5 @@ public:
 		float	farPlane, Shader& shader,
 		const char* uniform,
 		glm::mat4 transform = glm::mat4(1.f));
-
-	// Handles camera inputs
-	void Inputs(GLFWwindow* window);
 };
 #endif

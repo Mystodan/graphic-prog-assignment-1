@@ -108,15 +108,12 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         // Tell OpenGL which Shader Program we want to use
 
-        camera->Inputs(window);
-
         // draws map
         mapShader->Activate();
         camera->Matrix(45.0f, 0.1f, 100.0f, *mapShader, "camMatrix");
         level0->draw(window);
 
         // draws Player
-      
         Player->move(window);
         Player->draw();
 

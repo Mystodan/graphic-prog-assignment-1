@@ -20,7 +20,7 @@ void EBO::Unbind() {
 // Deletes the EBO
 void EBO::Delete() {
 	glDeleteBuffers(1, &ID);
-}
+} 
 
 int EBO::getBytes(const std::vector<GLuint>indices) {
 	return sizeof(std::vector<GLuint>) + sizeof(GLfloat) * indices.size();

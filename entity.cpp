@@ -101,23 +101,23 @@ void Entity::loadBuffers() {
 
 	vertices.push_back(0.f);		// Left bottom corner
 	vertices.push_back(0.f);
-	vertices.push_back(1.f);
+	vertices.push_back(0.01f);
 	vertices.push_back(color);
 	
 
 	vertices.push_back(1.f);
 	vertices.push_back(0.f);
-	vertices.push_back(1.f);
+	vertices.push_back(0.01f);
 	vertices.push_back(color);
 
 	vertices.push_back(1.f);
 	vertices.push_back(1.f);
-	vertices.push_back(1.f);
+	vertices.push_back(0.01f);
 	vertices.push_back(color);
 
 	vertices.push_back(0.f);
 	vertices.push_back(1.f);
-	vertices.push_back(1.f);
+	vertices.push_back(0.01f);
 	vertices.push_back(color);
 
 	indices.push_back(0);

@@ -90,7 +90,7 @@ public:
 	std::pair<int, int>		coordsToTile(float x, float y);
 	
 	void printAllPellets();
-	void pushTile(float x1, float y1, float mode, int& i, int& j, int tileTyp, int tileTypN, int tileTypE, int tileTypS, int tileTypW, float size=1.f);
+	void pushTile(float x1, float y1, float mode, int& i, float size = 1.f);
 	void pushPellet(float x1, float y1, float size, int& i);
 
 	void loadLevel(std::string inn);

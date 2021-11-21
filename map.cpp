@@ -123,7 +123,7 @@ void Map::loadTiles() {
 			tileTypE = getTileMode(x - 1, y, false);
 			tileTypS = getTileMode(x, y - 1, false);
 			tileTypW = getTileMode(x + 1, y, false);
-			pushTile(x, y, tileTyp, i, j, tileTyp, tileTypN, tileTypE, tileTypS, tileTypW);
+			pushTile(x, y, tileTyp, i);
 
 			// Set player spawn
 			if (tileTyp == 2) { spawnTileX = x; spawnTileY = y; }
@@ -206,39 +206,35 @@ std::pair<int, int>	Map::coordsToTile(float x, float y) {
  * 
  *	@see tileToCoords(x1, y1)
  */
-void Map::pushTile(float x1, float y1, float mode, int& i, int& j, int tileTyp, int tileTypN, int tileTypE, int tileTypS, int tileTypW, float size/*=1.f*/) {
+void Map::pushTile(float x1, float y1, float mode, int& i, float size/*=1.f*/) {
 
 	std::pair<float, float> tilePos = tileToCoords(x1, y1);
 
 	float	x = tilePos.first,
-			y = tilePos.second;
+		y = tilePos.second;
 
-	int temp;
-	if (tileTyp == 1) temp = 1.f;
-	else temp = 0.f;
-
-	// Bottom left 1
+	// Bottom left
 	t_vertices.push_back(tilePos.first);
 	t_vertices.push_back(tilePos.second);
-	t_vertices.push_back(temp);
+	t_vertices.push_back(0.0f);
 	t_vertices.push_back(mode);
 
-	// Bottom right 1
+	// Bottom right
 	t_vertices.push_back(tilePos.first + size);
 	t_vertices.push_back(tilePos.second);
-	t_vertices.push_back(temp);
+	t_vertices.push_back(0.0f);
 	t_vertices.push_back(mode);
 
-	// Top right 1
+	// Top right
 	t_vertices.push_back(tilePos.first + size);
 	t_vertices.push_back(tilePos.second + size);
-	t_vertices.push_back(temp);
+	t_vertices.push_back(0.0f);
 	t_vertices.push_back(mode);
 
-	// Top left 1
+	// Top left
 	t_vertices.push_back(tilePos.first);
 	t_vertices.push_back(tilePos.second + size);
-	t_vertices.push_back(temp);
+	t_vertices.push_back(0.0f);
 	t_vertices.push_back(mode);
 
 	// Push back indices
@@ -249,145 +245,6 @@ void Map::pushTile(float x1, float y1, float mode, int& i, int& j, int tileTyp, 
 	t_indices.push_back((i * 4) + 2);
 	t_indices.push_back((i * 4) + 3);
 	i++;
-
-	if (tileTypE != 1 && tileTyp != 0) {
-
-		// EAST
-		t_vertices.push_back(tilePos.first);
-		t_vertices.push_back(tilePos.second);
-		t_vertices.push_back(0.0f);
-		t_vertices.push_back(mode);
-
-		// EAST
-		t_vertices.push_back(tilePos.first);
-		t_vertices.push_back(tilePos.second);
-		t_vertices.push_back(1.0f);
-		t_vertices.push_back(mode);
-
-		// EAST
-		t_vertices.push_back(tilePos.first);
-		t_vertices.push_back(tilePos.second + size);
-		t_vertices.push_back(1.0f);
-		t_vertices.push_back(mode);
-
-		// EAST
-		t_vertices.push_back(tilePos.first);
-		t_vertices.push_back(tilePos.second + size);
-		t_vertices.push_back(0.0f);
-		t_vertices.push_back(mode);
-
-		// Push back indices
-		t_indices.push_back(i * 4);
-		t_indices.push_back((i * 4) + 1);
-		t_indices.push_back((i * 4) + 2);
-		t_indices.push_back(i * 4);
-		t_indices.push_back((i * 4) + 2);
-		t_indices.push_back((i * 4) + 3);
-		i++;
-	}
-	if (tileTypW != 1 && tileTyp != 0) {
-
-		// WEST left 3
-		t_vertices.push_back(tilePos.first + size);
-		t_vertices.push_back(tilePos.second);
-		t_vertices.push_back(0.0f);
-		t_vertices.push_back(mode);
-
-		// WEST right 3
-		t_vertices.push_back(tilePos.first + size);
-		t_vertices.push_back(tilePos.second);
-		t_vertices.push_back(1.0f);
-		t_vertices.push_back(mode);
-
-		// WEST right 3
-		t_vertices.push_back(tilePos.first + size);
-		t_vertices.push_back(tilePos.second + size);
-		t_vertices.push_back(1.0f);
-		t_vertices.push_back(mode);
-
-		// WEST left 3
-		t_vertices.push_back(tilePos.first + size);
-		t_vertices.push_back(tilePos.second + size);
-		t_vertices.push_back(0.0f);
-		t_vertices.push_back(mode);
-
-		// Push back indices
-		t_indices.push_back(i * 4);
-		t_indices.push_back((i * 4) + 1);
-		t_indices.push_back((i * 4) + 2);
-		t_indices.push_back(i * 4);
-		t_indices.push_back((i * 4) + 2);
-		t_indices.push_back((i * 4) + 3);
-		i++;
-	}
-	if (tileTypN != 1 && tileTyp != 0) {
-		// Bottom left 4
-		t_vertices.push_back(tilePos.first);
-		t_vertices.push_back(tilePos.second);
-		t_vertices.push_back(0.0f);
-		t_vertices.push_back(mode);
-
-		// Bottom right 4
-		t_vertices.push_back(tilePos.first + size);
-		t_vertices.push_back(tilePos.second);
-		t_vertices.push_back(0.0f);
-		t_vertices.push_back(mode);
-
-		// Top right 4
-		t_vertices.push_back(tilePos.first + size);
-		t_vertices.push_back(tilePos.second);
-		t_vertices.push_back(1.0f);
-		t_vertices.push_back(mode);
-
-		// Top left 4
-		t_vertices.push_back(tilePos.first);
-		t_vertices.push_back(tilePos.second);
-		t_vertices.push_back(1.0f);
-		t_vertices.push_back(mode);
-
-		// Push back indices
-		t_indices.push_back(i * 4);
-		t_indices.push_back((i * 4) + 1);
-		t_indices.push_back((i * 4) + 2);
-		t_indices.push_back(i * 4);
-		t_indices.push_back((i * 4) + 2);
-		t_indices.push_back((i * 4) + 3);
-		i++;
-	}
-	if (tileTypS != 1 && tileTyp != 0) {
-		// Bottom left 5
-		t_vertices.push_back(tilePos.first);
-		t_vertices.push_back(tilePos.second + size);
-		t_vertices.push_back(0.0f);
-		t_vertices.push_back(mode);
-
-		// Bottom right 5
-		t_vertices.push_back(tilePos.first + size);
-		t_vertices.push_back(tilePos.second + size);
-		t_vertices.push_back(0.0f);
-		t_vertices.push_back(mode);
-
-		// Top right 5
-		t_vertices.push_back(tilePos.first + size);
-		t_vertices.push_back(tilePos.second + size);
-		t_vertices.push_back(1.0f);
-		t_vertices.push_back(mode);
-
-		// Top left 5
-		t_vertices.push_back(tilePos.first);
-		t_vertices.push_back(tilePos.second + size);
-		t_vertices.push_back(1.0f);
-		t_vertices.push_back(mode);
-
-		// Push back indices
-		t_indices.push_back(i * 4);
-		t_indices.push_back((i * 4) + 1);
-		t_indices.push_back((i * 4) + 2);
-		t_indices.push_back(i * 4);
-		t_indices.push_back((i * 4) + 2);
-		t_indices.push_back((i * 4) + 3);
-		i++;
-	}
 }
 
 
@@ -403,166 +260,34 @@ void Map::pushTile(float x1, float y1, float mode, int& i, int& j, int tileTyp, 
 void Map::pushPellet(float x, float y, float size, int& i) {
 	x -= size / 2.f; y -= size / 2.f;
 	int mode = 3;
-	
-	std::pair<float, float> 
-			tilePos = tileToCoords(x, y);
-	float	newX		= tilePos.first,
-			newY		= tilePos.second;
 
-	// Bottom left 1
-	p_vertices.push_back(newX); 
-	p_vertices.push_back(newY);
-	p_vertices.push_back(0.625f);
-	p_vertices.push_back(mode);
+	std::pair<float, float>
+		tilePos = tileToCoords(x, y);
+	float	newX = tilePos.first,
+		newY = tilePos.second;
 
-	// Bottom right 1
-	p_vertices.push_back(newX + size);
-	p_vertices.push_back(newY);
-	p_vertices.push_back(0.625f);
-	p_vertices.push_back(mode);
-
-	// Top right 1
-	p_vertices.push_back(newX + size);
-	p_vertices.push_back(newY + size);
-	p_vertices.push_back(0.625f);
-	p_vertices.push_back(mode);
-
-	// Top left 1
-	p_vertices.push_back(newX);
-	p_vertices.push_back(newY + size);
-	p_vertices.push_back(0.625f);
-	p_vertices.push_back(mode);
-
-	// Push back indices
-	p_indices.push_back(i * 4);
-	p_indices.push_back((i * 4) + 1);
-	p_indices.push_back((i * 4) + 2);
-	p_indices.push_back(i * 4);
-	p_indices.push_back((i * 4) + 2);
-	p_indices.push_back((i * 4) + 3);
-	i++;
-
-	// Bottom left 2
+	// Bottom left
 	p_vertices.push_back(newX);
 	p_vertices.push_back(newY);
-	p_vertices.push_back(0.375f);
+	p_vertices.push_back(0.009f);
 	p_vertices.push_back(mode);
 
-	// Bottom right 2
-	p_vertices.push_back(newX);
-	p_vertices.push_back(newY);
-	p_vertices.push_back(0.625f);
-	p_vertices.push_back(mode);
-
-	// Top right 2
-	p_vertices.push_back(newX);
-	p_vertices.push_back(newY + size);
-	p_vertices.push_back(0.625f);
-	p_vertices.push_back(mode);
-
-	// Top left 2
-	p_vertices.push_back(newX);
-	p_vertices.push_back(newY + size);
-	p_vertices.push_back(0.375f);
-	p_vertices.push_back(mode);
-
-	// Push back indices
-	p_indices.push_back(i * 4);
-	p_indices.push_back((i * 4) + 1);
-	p_indices.push_back((i * 4) + 2);
-	p_indices.push_back(i * 4);
-	p_indices.push_back((i * 4) + 2);
-	p_indices.push_back((i * 4) + 3);
-	i++;
-
-	// Bottom left 3
+	// Bottom right
 	p_vertices.push_back(newX + size);
 	p_vertices.push_back(newY);
-	p_vertices.push_back(0.375f);
+	p_vertices.push_back(0.009f);
 	p_vertices.push_back(mode);
 
-	// Bottom right 3
-	p_vertices.push_back(newX + size);
-	p_vertices.push_back(newY);
-	p_vertices.push_back(0.625f);
-	p_vertices.push_back(mode);
-
-	// Top right 3
+	// Top right
 	p_vertices.push_back(newX + size);
 	p_vertices.push_back(newY + size);
-	p_vertices.push_back(0.625f);
+	p_vertices.push_back(0.009f);
 	p_vertices.push_back(mode);
 
-	// Top left 3
-	p_vertices.push_back(newX + size);
-	p_vertices.push_back(newY + size);
-	p_vertices.push_back(0.375f);
-	p_vertices.push_back(mode);
-
-	// Push back indices
-	p_indices.push_back(i * 4);
-	p_indices.push_back((i * 4) + 1);
-	p_indices.push_back((i * 4) + 2);
-	p_indices.push_back(i * 4);
-	p_indices.push_back((i * 4) + 2);
-	p_indices.push_back((i * 4) + 3);
-	i++;
-
-	// Bottom left 4
-	p_vertices.push_back(newX);
-	p_vertices.push_back(newY);
-	p_vertices.push_back(0.375f);
-	p_vertices.push_back(mode);
-
-	// Bottom right 4
-	p_vertices.push_back(newX + size);
-	p_vertices.push_back(newY);
-	p_vertices.push_back(0.375f);
-	p_vertices.push_back(mode);
-
-	// Top right 4
-	p_vertices.push_back(newX + size);
-	p_vertices.push_back(newY);
-	p_vertices.push_back(0.625f);
-	p_vertices.push_back(mode);
-
-	// Top left 4
-	p_vertices.push_back(newX);
-	p_vertices.push_back(newY);
-	p_vertices.push_back(0.625f);
-	p_vertices.push_back(mode);
-
-	// Push back indices
-	p_indices.push_back(i * 4);
-	p_indices.push_back((i * 4) + 1);
-	p_indices.push_back((i * 4) + 2);
-	p_indices.push_back(i * 4);
-	p_indices.push_back((i * 4) + 2);
-	p_indices.push_back((i * 4) + 3);
-	i++;
-
-	// Bottom left 5
+	// Top left
 	p_vertices.push_back(newX);
 	p_vertices.push_back(newY + size);
-	p_vertices.push_back(0.375f);
-	p_vertices.push_back(mode);
-
-	// Bottom right 5
-	p_vertices.push_back(newX + size);
-	p_vertices.push_back(newY + size);
-	p_vertices.push_back(0.375f);
-	p_vertices.push_back(mode);
-
-	// Top right 5
-	p_vertices.push_back(newX + size);
-	p_vertices.push_back(newY + size);
-	p_vertices.push_back(0.625f);
-	p_vertices.push_back(mode);
-
-	// Top left 5
-	p_vertices.push_back(newX);
-	p_vertices.push_back(newY + size);
-	p_vertices.push_back(0.625f);
+	p_vertices.push_back(0.009f);
 	p_vertices.push_back(mode);
 
 	// Push back indices
@@ -695,8 +420,12 @@ void Map::setPelletMode(int x, int y, bool mode) {
 	mode ? gPellets++ : gPellets--;
 
 	// ...and make the pellet appear black
-	for (int i = 0; i < 80; i+=4)
-		p_vertices[ID*80 + i] = 0;
+	ID = ID * 16;
+	p_vertices.at(ID + 3) = 0;
+	p_vertices.at(ID + 7) = 0;
+	p_vertices.at(ID + 11) = 0;
+	p_vertices.at(ID + 15) = 0;
+
 }
 
 /**
