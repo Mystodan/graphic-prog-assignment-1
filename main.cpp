@@ -1,5 +1,3 @@
-#define TINYOBJLOADER_IMPLEMENTATION //This needs to be defined exactly once so that tinyOBJ will work
-
 #include "camera.h"
 #include "map.h"
 #include "entity.h"
