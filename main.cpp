@@ -1,7 +1,5 @@
 #define TINYOBJLOADER_IMPLEMENTATION //This needs to be defined exactly once so that tinyOBJ will work
 
-#include "shaders/shader.h"
-
 #include "camera.h"
 #include "map.h"
 #include "entity.h"
@@ -11,7 +9,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "tiny_obj_loader.h"
 
 #include <iostream>
 #include <set>
