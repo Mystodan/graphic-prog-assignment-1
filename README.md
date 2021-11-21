@@ -1,4 +1,4 @@
-# Assignment 2: 3D Pacman (By Håvard and Daniel - Group 5)
+# Assignment 1: 2D Pacman (By Håvard and Daniel - Group 5)
 
 **Controls:**
 - WASD or Arrow keys
